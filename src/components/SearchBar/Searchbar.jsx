@@ -7,6 +7,9 @@ export default class Searchbar extends Component {
 
   onSubmit = e => {
     e.preventDefault();
+
+    this.props.onSearch(this.state.input);
+    this.setState({ input: '' });
   };
 
   onChange = e => {

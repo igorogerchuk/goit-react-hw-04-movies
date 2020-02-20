@@ -13,7 +13,6 @@ export default class Homepage extends Component {
     themoviedbApi
       .fetchAPITopMovies()
       .then(movies => {
-        console.log(movies);
         this.setState({ movies });
       })
       .catch(error => {

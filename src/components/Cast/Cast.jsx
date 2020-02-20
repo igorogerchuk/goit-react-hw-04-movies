@@ -20,7 +20,7 @@ export default class Cast extends Component {
     return (
       <ul>
         {cast.map(actor => (
-          <li>
+          <li key={actor.id}>
             {actor.profile_path && (
               <img
                 src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}

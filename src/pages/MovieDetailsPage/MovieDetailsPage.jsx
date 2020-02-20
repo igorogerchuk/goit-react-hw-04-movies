@@ -14,7 +14,6 @@ export default class MovieDetailPage extends Component {
 
   fetchMovieDetails = () => {
     const movieId = this.props.match.params.movieId;
-
     themoviedbApi
       .fetchAPIMovieDetails(movieId)
       .then(movie => this.setState({ movie }))
@@ -35,7 +34,9 @@ export default class MovieDetailPage extends Component {
 
   render() {
     const { movie } = this.state;
-    const { match } = this.props;
+    const { match, location } = this.props;
+    const previousPage = location.state;
+
     return (
       <>
         <button onClick={this.handleBackButton}>Back to movies</button>
@@ -54,7 +55,7 @@ export default class MovieDetailPage extends Component {
             <h3>Genres</h3>
             <ul>
               {movie.genres.map(genre => (
-                <li>{genre.name}</li>
+                <li key={genre.name}>{genre.name}</li>
               ))}
             </ul>
             <h3>Additional information</h3>
@@ -63,7 +64,7 @@ export default class MovieDetailPage extends Component {
                 pathname: `${match.url}/cast`,
                 state: {
                   id: movie.id,
-                  from: this.props.location.state.from,
+                  from: previousPage ? previousPage.from : null,
                 },
               }}
             >
@@ -75,7 +76,7 @@ export default class MovieDetailPage extends Component {
                 pathname: `${match.url}/reviews`,
                 state: {
                   id: movie.id,
-                  from: this.props.location.state.from,
+                  from: previousPage ? previousPage.from : null,
                 },
               }}
             >
